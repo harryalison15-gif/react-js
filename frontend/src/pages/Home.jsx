@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PostForm from '../components/PostForm';
 
 const Home = () => {
   const [message, setMessage] = useState('')
@@ -12,8 +13,8 @@ const Home = () => {
     FetchData()
   }, [])
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
-      <h1 className='font-bold text-3xl'>{message}</h1>
+    <div className='w-screen h-full min-h-screen flex items-center justify-center bg-gray-800'>
+       <PostForm/>
     </div>
   )
 }
