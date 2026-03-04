@@ -1,16 +1,15 @@
-const useDeletePost = (fetchPost) => {
-    const deletePost = async (id) => {
-        try {
-            const res = await fetch(import.meta.env.VITE_API_URL+`/post/${id}`, {
-                method: 'DELETE'
-            })
-            const data = await res.json()
-            console.log(data)
-            fetchPost()
-        } catch (error) {
-            console.error('Failed to delete post')
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { deletePost } from "../api/post"
+
+
+const useDeletePost = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (id) => deletePost(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['posts'] })
         }
-    }
-    return { deletePost }
+    })
+
 }
 export default useDeletePost
